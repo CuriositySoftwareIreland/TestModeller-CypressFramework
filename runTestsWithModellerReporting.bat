@@ -1,0 +1,1 @@
+node_modules\.bin\cypress run --reporter ../cypress/reporter/curiosityReporter.js  \ --reporter-options "apiEndpoint=http://localhost:8080,apiKey=PtYawE1NRkqBmf4dy3tY6kJW5"
