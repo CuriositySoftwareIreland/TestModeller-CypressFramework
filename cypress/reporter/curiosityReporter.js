@@ -251,7 +251,7 @@ module.exports = function(runner, options)
 
 		curStatus = "Failed";
 		
-		curMessage = JSON.stringify(test.err).message;
+		curMessage = JSON.stringify(test.err.message);
 
 		var curFileName = getFileName(test);
 		if (curFileName != null && fileNames.indexOf(curFileName) < 0) 
