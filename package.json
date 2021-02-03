@@ -3,9 +3,10 @@
     "cypress:open": "cypress open"
   },
   "devDependencies": {
-    "cypress-xpath": "^1.4.0"
+    "cypress-xpath": "^1.6.1"
   },
   "dependencies": {
-    "cypress": "^3.4.1"
+    "cypress": "^3.8.3",
+    "xmlhttprequest": "^1.8.0"
   }
 }

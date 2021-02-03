@@ -15,64 +15,6 @@ function bin2String(array) {
   return result;
 }
 
-/*
-function postRunCollection(options, fileNames, vipRunId)
-{
-	return new Promise((resolve, reject) => {
-		let outputStreamBuffer = new streamBuffers.WritableStreamBuffer({
-			initialSize: (1000 * 1024),   // start at 1000 kilobytes.
-			incrementAmount: (1000 * 1024) // grow by 1000 kilobytes each time buffer overflows.
-		});
-
-		var archive = archiver('zip');
-
-		archive.pipe(outputStreamBuffer);
-		
-		outputStreamBuffer.on('finish', () => 
-		{
-			var runCollection = {};	
-
-			runCollection.guid = vipRunId;
-			
-			runCollection.fileByte = outputStreamBuffer.getContents().toString("base64");
-			runCollection.fileName = "videos.zip";
-			runCollection.name = "Cypress execution";
-			runCollection.created = Date.now();
-							
-			var xmlhttp = new XMLHttpRequest();  
-			var theUrl = options.apiEndpoint + "/api/apikey/" + options.apiKey + "/model/version/profile/testcollection/testsuite/testpathcollection";
-
-			xmlhttp.open("POST", theUrl);
-
-			xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-			
-			xmlhttp.onreadystatechange = function () {
-				if (!(xmlhttp.status === 0 || (xmlhttp.status >= 200 && xmlhttp.status < 400))) {
-					console.log(xmlhttp);					
-				} else {
-					resolve();	
-				}
-				
-				console.log(xmlhttp);
-			};		
-			
-			console.log(runCollection);
-			xmlhttp.send(JSON.stringify(runCollection));
-		});	
-		
-		for (var i = 0; i < fileNames.length; i++) 
-		{
-*/
-//			glob.sync("./" + options.videoLocation + "**/*" + fileNames[i] + "*.mp4").map(file => {
-				//archive.append(fs.createReadStream(file), { name: path.basename(file) });
-			//});
-/*
-		}
-			
-		archive.finalize();
-	});
-}*/
-
 function postResult(options, pathGuid, vipRunId, status, steps, msg, screenshots) 
 {
 	var testPathRun = {};
@@ -89,22 +31,28 @@ function postResult(options, pathGuid, vipRunId, status, steps, msg, screenshots
 	testPathRun.vipRunId = vipRunId;
 	
 	testPathRun.attachments = [];
-	for (var i = 0; i < screenshots.length; i++) {
-		testPathRun.attachments.push(screenshots[i]);
+	for (var j = 0; j < screenshots.length; j++) {
+		for (var i = 0; i < screenshots.length; i++) {
+			testPathRun.attachments.push(screenshots[i]);
+		}
 	}
 	
 	var xmlhttp = new XMLHttpRequest();  
 
 	var theUrl = options.apiEndpoint + "/api/apikey/" + options.apiKey + "/model/version/profile/testcollection/testsuite/testpath/run";
 
-	xmlhttp.open("POST", theUrl);
+	xmlhttp.open("POST", theUrl, true);
 
 	xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
 	console.log("Posting result of " + status );	
+
 	xmlhttp.onreadystatechange = function () {
 		if (!(xmlhttp.status === 0 || (xmlhttp.status >= 200 && xmlhttp.status < 400))) {
+			console.log("ERROR: Posting results to TestModeller");
 			console.log(xmlhttp);
+		} else if (xmlhttp.status == 200 && xmlhttp.readyState == 4) {
+			console.log("Result successfully posted to TestModeller");		
 		}
 	};
 
