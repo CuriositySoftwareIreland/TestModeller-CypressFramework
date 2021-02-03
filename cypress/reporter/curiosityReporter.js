@@ -31,10 +31,8 @@ function postResult(options, pathGuid, vipRunId, status, steps, msg, screenshots
 	testPathRun.vipRunId = vipRunId;
 	
 	testPathRun.attachments = [];
-	for (var j = 0; j < screenshots.length; j++) {
-		for (var i = 0; i < screenshots.length; i++) {
-			testPathRun.attachments.push(screenshots[i]);
-		}
+	for (var i = 0; i < screenshots.length; i++) {
+		testPathRun.attachments.push(screenshots[i]);
 	}
 	
 	var xmlhttp = new XMLHttpRequest();  
