@@ -3,6 +3,7 @@ const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const fs = require('fs');
 const glob = require( 'glob' );
 const path = require('path');
+const deasync = require('deasync');
 
 //const archiver = require('archiver');
 //const streamBuffers = require('stream-buffers');
@@ -43,18 +44,28 @@ function postResult(options, pathGuid, vipRunId, status, steps, msg, screenshots
 
 	xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-	console.log("Posting result of " + status );	
+	console.log("TestModeller - Posting result of " + status );	
 
+	var complete = false;
 	xmlhttp.onreadystatechange = function () {
 		if (!(xmlhttp.status === 0 || (xmlhttp.status >= 200 && xmlhttp.status < 400))) {
-			console.log("ERROR: Posting results to TestModeller");
+			console.log("TestModeller - ERROR: Posting results to TestModeller");
 			console.log(xmlhttp);
+			complete = true;
 		} else if (xmlhttp.status == 200 && xmlhttp.readyState == 4) {
-			console.log("Result successfully posted to TestModeller");		
+			console.log("TestModeller - Result successfully posted");		
+			complete = true;
 		}
 	};
-
+	
+	
 	xmlhttp.send(JSON.stringify(testPathRun));
+	
+	while(complete != true) {
+		require('deasync').sleep(100);
+	}
+
+	console.log("TestModeller - Reporter Complete");
 }
 
 function configureDefaults(options) 

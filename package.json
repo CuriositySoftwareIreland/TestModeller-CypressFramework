@@ -3,10 +3,11 @@
     "cypress:open": "cypress open"
   },
   "devDependencies": {
-    "cypress-xpath": "^1.6.1"
+    "cypress-xpath": "^1.6.2"
   },
   "dependencies": {
     "cypress": "^3.8.3",
+    "deasync": "^0.1.21",
     "xmlhttprequest": "^1.8.0"
   }
 }
