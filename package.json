@@ -1,13 +1,18 @@
 {
   "scripts": {
-    "cypress:open": "cypress open"
+	"cypress:instPlugins": "npm install",
+    "cypress:open": "cypress open",
+	"cypress:run": "npm run cypress:instPlugins && cypress run --reporter cypress/reporter/curiosityReporter.js --reporter-options 'apiEndpoint=<apiendpoint>,apiKey=<apikey>' $npm_config_testSpec"
   },
   "devDependencies": {
+	"cross-env": "^7.0.2",
     "cypress-xpath": "^1.6.2"
   },
   "dependencies": {
-    "cypress": "^3.8.3",
-    "deasync": "^0.1.21",
-    "xmlhttprequest": "^1.8.0"
+	"fs": "0.0.1-security",
+	"glob": "^7.1.6",
+	"path": "^0.12.7",
+	"deasync": "^0.1.21",
+	"xmlhttprequest": "^1.8.0"
   }
 }

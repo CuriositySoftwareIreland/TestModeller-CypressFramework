@@ -1,0 +1,10 @@
+[Unit]
+Description=Job execution for TM
+
+[Service]
+ExecStart=/usr/bin/sudo /bin/dotnet /data/modeller_job_engine/KafkaJobEngine.Net5.dll
+Type=simple
+WorkingDirectory=/etc/ModellerExecutionEngine
+
+[Install]
+WantedBy=multi-user.target

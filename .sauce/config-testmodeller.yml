@@ -1,0 +1,42 @@
+apiVersion: v1alpha
+kind: cypress
+defaults: {}
+showconsolelog: false
+sauce:
+  region: eu-central-1
+  concurrency: 2
+  sauceignore: .sauceignore
+cypress:
+  configFile: cypress.json
+  version: 7.7.0
+  record: false
+  key: ""
+  reporters: []
+suites:
+- name: cypress - windows 10 - chrome
+  browser: chrome
+  platformName: windows 10
+  config:
+    testFiles:
+    - '{{cypress_run_files}}/**/*.*'
+  mode: sauce
+reporters:
+  junit:
+    enabled: true
+    filename: saucectl-report.xml
+npm:
+  registry: https://registry.npmjs.org
+  packages:
+    fs: "0.0.1-security"
+    glob: "^7.1.6"
+    path: "^0.12.7"
+    deasync: "^0.1.21"
+    cypress-xpath: "^1.6.2"
+    xmlhttprequest: "^1.8.0"
+rootDir: .
+artifacts:
+  download:
+    match:
+    - '*'
+    when: always
+    directory: ./artifacts
