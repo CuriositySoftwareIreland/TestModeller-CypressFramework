@@ -25,6 +25,7 @@ function postResult(options, pathGuid, vipRunId, status, steps, msg, screenshots
 	testPathRun.testStatus = (status);
 		
 	testPathRun.message = (msg);
+	testPathRun.jobId = options.jobId;
 		
 	testPathRun.testPathRunSteps = steps;
 	
